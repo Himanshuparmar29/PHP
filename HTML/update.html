@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <form action="../PHP/insert_into_table.php" method="post" id="cardForm">
+        Name: <input name="name" id="nameInput" oninput="fetchId()">
+        <br>
+        <br>
+        ID: <input name="id" id="idInput" readonly>
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        function fetchId() {
+            var name = document.getElementById('nameInput').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '../PHP/get_id.php?name=' + encodeURIComponent(name), true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    document.getElementById('idInput').value = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
